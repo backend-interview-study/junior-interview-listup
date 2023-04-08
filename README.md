@@ -9,7 +9,8 @@
 
 ## 2. 참여 방법
 - 제목: 폴더명-관련 내용 키워드-영문이름 <br>
-`ex) Java-JVM-seoyun` 
+  - 키워드가 1개 이상인 경우 `-` 이어서 작성
+`ex) Java-JVM-GC-seoyun` 
 
 ---
 # 📌 Member 
