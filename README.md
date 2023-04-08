@@ -31,8 +31,6 @@
 
 ## Java 
 
-[Java 8 버전에 추가된 중요 기능들에 대해서 설명해주세요.](www.naver.com)
-
 ## Spring + Springboot
 
 ## JPA
