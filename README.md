@@ -30,7 +30,7 @@
 
 # 📌 Interview
 
-## Java 
+## [Java](https://github.com/backend-interview-study/junior-interview-listup/tree/main/Java) 
 
 ## Spring + Springboot
 
