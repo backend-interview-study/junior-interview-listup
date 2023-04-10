@@ -49,156 +49,6 @@
     - 현재 데이터를 사용하고 있는 스레드를 제외한 다른 스레드는 데이터에 접근할 수 없도록 막는다
     - `synchronized` 키워드를 너무 많이 사용하면 성능이 저하될 수 있다
 
-#### 메서드에서 사용하는 경우
-
-```java
-public synchronized void method() {
-		...
-}
-```
-
-#### 객체 변수에 사용하는 경우(block문)
-
-```java
-private Object obj = new Object();
-
-public void exampleMethod() { 
-		// obj에 
-		synchronized(obj) {
-			...
-		}
-}
-
-```
-
-### 경쟁 상태 예시
-
-- 스레드의 동기화 없이 변수 `c` 를 `+1` 후 `-1` 하는 경우
-
-#### Counter class
-
-```java
-public class Counter implements Runnable {
-    private int c = 0;
-
-    public void increment() {
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            //Auto-generated catch block
-            e.printStackTrace();
-        }
-        c++;
-    }
-
-    public void decrement() {
-        c--;
-    }
-
-    public int getValue() {
-        return c;
-    }
-
-    @Override
-    public void run() {
-        //incrementing
-        this.increment();
-        System.out.println("Value for Thread After increment " + Thread.currentThread().getName() + " " + this.getValue());
-        //decrementing
-        this.decrement();
-        System.out.println("Value for Thread at last " + Thread.currentThread().getName() + " " + this.getValue());
-    }
-}
-```
-
-#### Main class
-
-```java
-public class Main {
-    public static void main(String[] args) {
-        Counter counter = new Counter();
-        Thread t1 = new Thread(counter, "Thread-1");
-        Thread t2 = new Thread(counter, "Thread-2");
-        Thread t3 = new Thread(counter, "Thread-3");
-        t1.start();
-        t2.start();
-        t3.start();
-    }
-}
-```
-
-#### 실행 결과
-
-```
-Value for Thread After increment Thread-1 2
-Value for Thread After increment Thread-3 2
-Value for Thread After increment Thread-2 2
-Value for Thread at last Thread-3 0
-Value for Thread at last Thread-2 -1
-Value for Thread at last Thread-1 1
-```
-
-1, 0이 번갈아가며 나올것이라는 예상과는 다르게 값이 섞여서 나온다
-
-### 경쟁 상태 해결 예시
-
-#### Counter class
-
-```java
-public class Counter implements Runnable {
-    private int c = 0;
-
-    public void increment() {
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            //Auto-generated catch block
-            e.printStackTrace();
-        }
-        c++;
-    }
-
-    public void decrement() {
-        c--;
-    }
-
-    public int getValue() {
-        return c;
-    }
-
-    @Override
-    public void run() {
-        synchronized (this){
-            //incrementing
-            this.increment();
-            System.out.println("Value for Thread After increment " + Thread.currentThread().getName() + " " + this.getValue());
-            //decrementing
-            this.decrement();
-            System.out.println("Value for Thread at last " + Thread.currentThread().getName() + " " + this.getValue());
-        }
-    }
-}
-```
-
-#### 실행 결과
-
-```
-Value for Thread After increment Thread-1 1
-Value for Thread at last Thread-1 0
-Value for Thread After increment Thread-3 1
-Value for Thread at last Thread-3 0
-Value for Thread After increment Thread-2 1
-Value for Thread at last Thread-2 0
-```
-
-- 원하는 결과가 나온것을 확인할 수 있다
-
-[(10) 경쟁 상태 ( Race Condition )](https://korshika.tistory.com/150)
-
-[Race Condition in Java](https://velog.io/@gjwjdghk123/RaceCondition)
-
-[java - synchronized 란? 사용법?](https://coding-start.tistory.com/68)
-
 ***
 
 ## 참고. Spring에서의 경쟁상태 해결
@@ -216,3 +66,68 @@ Thread2: |--------Begin--------|--decrease--|--Commit-->
 
 - 이러한 문제를 피하기 위해서, `@Transactional` 을 필요한 경우에만 사용하는 것이 좋다
 
+***
+
+# 2. Java final 키워드에 대해서 설명해주세요. 각각의 쓰임에 따라 어떻게 동작하나요? (Class, Variable)
+
+## final 키워드
+
+- 변수(variable), 메서드(method), 또는 클래스(class)에 사용할 수 있다
+- 어떤 곳에 사용되냐에 따라 다른 의미를 가진다
+
+### 1. final 변수
+
+- final이 붙은 변수는 값을 수정할 수 없다
+    - 수정될 수 없기 때문에 초기화 값은 필수적이다
+    - 초기화 전에 사용하면 컴파일 에러가 생긴다
+
+```java
+final int number = 2;
+```
+
+- 상수라고도 부른다
+- `get` 만 가능하다
+- 객체에 대한 참조인 경우, 최초 참조하는 객체 이외의 다른 객체를 참조할 수 없다
+    - 참조된 객체의 메소드를 통해 객체 자체의 값은 바꿀 수 있다
+    - 객체의 재할당을 막는다
+        
+        → 객체 자체가 불변은 아니다
+        
+
+```java
+final Person person = new Person("아무개");
+person = new Person("어배추고양이") // Compile Error
+
+person.setName("어배추고양이"); // 객체의 값을 바꿀 수 있다
+```
+
+
+### 2. final 클래스
+
+- final이 붙은 클래스는 상속(Inheritance)이 불가능한 클래스가 된다
+    - 다른 클래스에서 상속해 재정의를 할 수 없다
+    - ex. Integer와 같은 Wrapper 클래스
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e07704b7-bc34-44ae-a3a6-de0a00d3149f/Untitled.png)
+    
+- subclass를 만들 수 없다
+- 라이브러리 형태의 프로젝트를 작성할 때 주로 사용
+
+```java
+final class Person {
+  String name;
+}
+
+// 상속 불가능
+class Doctor extends Person {
+
+}
+```
+
+### 3. final 메서드
+
+- final 이 붙은 메서드는 해당 메서드를 오버라이드하지 못한다
+    
+    → 재정의가 불가능하다
+    
+- 라이브러리 형태의 프로젝트를 작성할 때 주로 사용
