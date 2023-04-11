@@ -47,7 +47,7 @@
 |:-----:|:---------------------------:|:-----------------------------:|
 | `S` | SRP, Single Responsibility Principle <br>단일 책임 원칙 | 한 클래스는 하나의 책임만 가져야 한다. |
 | `O` | OCP, Open Close Prinicple <br>개방 폐쇄 원칙 | 확장에는 열려(Open) 있으나, 변경에는 닫혀(Closed)있어야 한다. |
-| `L` | LSP, Liskov Substitution Principle <br>리스코프 치환 원칙 |  프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 한다. |
+| `L` | LSP, Liskov Substitution Principle <br>리스코프 치환 원칙 |  상위 타입은 항상 하위 타입으로 대체할 수 있어야 한다. |
 | `I` | 	ISP, Interface Segregation Principle <br>인터페이스 분리 원칙 | 인터페이스를 클라이언트에 특화되도록 분리시키라는 설계 원칙 |
 | `D` | DIP, Dependency Inversion Principle <br>의존 역전 원칙 | 추상화에 의존한다. 구체화에 의존하면 안된다. |
 
