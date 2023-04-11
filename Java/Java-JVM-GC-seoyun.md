@@ -26,3 +26,11 @@ synchronized를 통해 접근을 동기화하는 방법을 고려해 볼 수 있
 ---
 
 # 2. Garbage Collection에 대해서 설명해 주세요.
+
+## 면접 
+
+자세한 내용은 [블로그 링크](https://velog.io/@may_yun/Java-Q2.-%EA%B0%80%EB%B9%84%EC%A7%80-%EC%BB%AC%EB%A0%89%EC%85%98-GC%EC%97%90-%EA%B4%80%ED%95%B4%EC%84%9C-%EC%84%A4%EB%AA%85%ED%95%B4-%EC%A3%BC%EC%84%B8%EC%9A%94)를 참고해 주세요.
+
+추가 공부하면 좋을 내용
+- GC 동작 방식
+- 가비지 컬렉터
