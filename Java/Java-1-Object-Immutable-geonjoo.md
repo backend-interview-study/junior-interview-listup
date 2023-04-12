@@ -40,3 +40,76 @@
 ***
 
 # 2. 불변 객체는 무엇이고 Java에서 어떻게 구현할까요?
+
+## 불변 객체란?
+
+- 객체 생성 이후 내부 상태가 변하지 않고 변경할 수 없는 객체
+- 객체의 내부 상태를 제공하는 메서드를 제공하지 않거나 방어적 복사를 통해 제공
+- Java의 대표적 불변 객체 : `String`, `Integer`, `Long`, `Double` 등등
+
+## 불변 객체의 장점
+
+- Thread-Safe 해서 병렬 프로그래밍에 유용하고 동기화를 고려하지 않아도 된다
+    - 항상 동일한 값을 보장하므로, 공유자원의 값이 덮어씌워지지 않는다
+- 내부 상태의 변경이 없기 때문에 Cache, Map, Set 등의 요소로 활용하기에 적합하다
+    - 한 번 데이터가 저장된 후 다른 작업(갱신)을 고려하지 안하오 된다
+- 외부에서 객체에 대해 변경할 수 없으므로 안정성이 있다
+    - 값의 수정이 불가능해 객체의 신뢰성이 높다
+- GC의 성능을 높일 수 있다
+    - 불변 객체를 이용하면 불변 객체 내부의 객체는 GC 스캔 대상에 제외된다
+        
+        → GC 의 스캔 빈도와 범위가 줄게 되어서 GC 의 성능에 도움이 된다
+        
+    - 객체를 많이 생성해도, 객체 생성에 대한 비용은 큰 부담이 되지 않는다
+
+## 불변객체 생성 규칙
+
+1. Setter Method 를 제공하지 않는다
+2. 모든 필드를 `private`, `final` 로 선언한다
+3. 클래스를 `final` 로 선언한다
+4. 객체를 생성하기 위한 생성자 / 정적 팩토리를 추가한다
+5. 불변 객체 사용 시 방어적 복사를 고려하지 않아도 된다
+
+## 불변 객체 생성 방법
+
+### 필드가 모두 primitive type인 경우
+
+```java
+public final class ImmutableObj {
+    private final int num;
+
+    public ImmutableObj(int num) {
+        this.num = num;
+    }
+
+    public int getNum() {
+        return num;
+    }
+}
+```
+
+### 필드에 reference type이 있는 경우
+
+```java
+public final class ImmutableReference {
+    private final int num;
+    private final Amount amount;
+
+		// 전달받은 Amount 객체가 외부에서 변경될 수 있으므로 참조를 끊는다
+    public ImmutableReference(int num, Amount amount) {
+        this.num = num;
+        this.amount = new Amount(amount.getValue());
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+		// 외부로 전달한 Amount 객체가 외부에서 변경될 수 있어서 참조를 끊는다
+    public Amount getAmount() {
+        return new Amount(amount.getValue());
+    }
+}
+```
+
+- 방어적 복사를 이용해 참조관계를 끊어야 한다
