@@ -1,12 +1,12 @@
 # 1. Spring, Spring Boot의 차이점에 대해 각각 설명해 주세요.
 
-- Spring 
+- Spring: 자바 EE 어플리케이션을 빌드할 수 있는 오픈소스 경량 프레임워크   
   - 자바 기반 애플리케이션을 만드는 데 사용
   - 의존성: 종속성 주입(dependency의 호횐되는 라이브러리 버전을 맞춰줘야 한다)
   - 서버 종속성: 서버를 명시적으로 설정해야 한다(Tomcat)
   - 배포: war 파일을 WAS에 담아 설정을 통해 배포
 
-- SpringBoot
+- SpringBoot: 스프링 프레임워크를 사용하기 위한 설정의 많은 부분을 자동화하여 개발자가 편하게 스프링을 활용할 수 있도록 돕는다.
   - 주로 REST API 개발을 위해 사용
   - 의존성: spring starter를 통한 dependency 라이브러리 버전 자동화(자동 구성)
   - 서버: springboot 내부에 Tomcat이 내장되어 있어서 (Embed Tomcat 사용) 따로 Tomcat을 설치하거나 매번 버전 관리를 하지 않아도 된다
