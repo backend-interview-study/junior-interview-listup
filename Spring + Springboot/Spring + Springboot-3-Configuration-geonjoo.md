@@ -20,9 +20,9 @@
 ```java
 public class MyBean {
 		
-		public MyBean {
-				System.out.println("MyBean instance created");
-		}
+	public MyBean {
+		System.out.println("MyBean instance created");
+	}
 
 }
 ```
@@ -30,10 +30,10 @@ public class MyBean {
 ```java
 public class MyBeanConsumer {
 		
-		public MyBeanConsumer  {
-				System.out.println("MyBeanConsumer created");
-				System.out.println("myBean HashCode: " + myBean.hashCode());
-		}
+	public MyBeanConsumer  {
+		System.out.println("MyBeanConsumer created");
+		System.out.println("myBean HashCode: " + myBean.hashCode());
+	}
 
 }
 ```
@@ -42,15 +42,15 @@ public class MyBeanConsumer {
 @Configuration
 public class AppConfig {
 		
-		@Bean
-		public MyBean myBean() {
-				return new MyBean();
+	@Bean
+	public MyBean myBean() {
+		return new MyBean();
 		}
 
-		@Bean
-		public MyBeanConsumer myBeanComsumer() {
-				return new myBeanConsumer(myBean());
-		}
+	@Bean
+	public MyBeanConsumer myBeanComsumer() {
+		return new myBeanConsumer(myBean());
+	}
 
 }
 ```
