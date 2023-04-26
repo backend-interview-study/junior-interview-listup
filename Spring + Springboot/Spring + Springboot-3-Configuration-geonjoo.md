@@ -78,6 +78,7 @@ myBean HashCode: 1647766367
 
 → `myBean()` 메서드가 호출될 때마다 new로 새로운 MyBean을 생성하기 때문에 `"MyBean instance created"` 가 두번 호출되게 된다
 
+***
 
 ## 참고
 
