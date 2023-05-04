@@ -32,7 +32,7 @@
 
 ## [Java](https://github.com/backend-interview-study/junior-interview-listup/tree/main/Java) 
 
-## Spring + Springboot
+## [Spring + Springboot](https://github.com/backend-interview-study/junior-interview-listup/tree/main/Spring%20%2B%20Springboot)
 
 ## JPA
 
